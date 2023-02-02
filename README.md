@@ -20,7 +20,7 @@ Le us explore how we can migrate our codes to Terraform Cloud and manage our AWS
 1. Create a Terraform Cloud account
 Follow this link https://app.terraform.io/signup/account, create a new account, verify your email and you are ready to start
 
-Most of the features are free, but if you want to explore the difference between free and paid plans – you can check it on this page.
+        Most of the features are free, but if you want to explore the difference between free and paid plans – you can check it on this page.
 
 2. Create an organization
 Select "Start from scratch", choose a name for your organization and create it.
@@ -45,7 +45,7 @@ After you have set these 2 environment variables – yout Terraform Cloud is all
 
 5. Now it is time to run our Terrafrom scripts, but in our previous project which was project 18, we talked about using Packer to build our images, and Ansible to configure the infrastructure, so for that we are going to make few changes to our our existing respository from Project 18.
 
-The files that would be Addedd is;
+The files that would be Added is;
  
 - ami: for building packer images
 - ansible: for Ansible scripts to configure the infrastucture
