@@ -18,9 +18,8 @@ Terraform Cloud executes Terraform commands on disposable virtual machines, this
 Le us explore how we can migrate our codes to Terraform Cloud and manage our AWS infrastructure from there:
 
 1. Create a Terraform Cloud account
-Follow this link https://app.terraform.io/signup/account, create a new account, verify your email and you are ready to start
-
-        Most of the features are free, but if you want to explore the difference between free and paid plans – you can check it on this page.
+Follow this link https://app.terraform.io/signup/account, create a new account, verify your email and you are ready to start. 
+Most of the features are free, but if you want to explore the difference between free and paid plans – you can check it on this page.
 
 2. Create an organization
 Select "Start from scratch", choose a name for your organization and create it.
