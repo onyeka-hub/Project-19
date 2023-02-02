@@ -63,7 +63,7 @@ Refer to this **repository** https://github.com/darey-devops/PBL-project-19.git 
         - ubuntu ami
         - web ami for wordpress and tooling sites
 
-Please refer to the below repository for the codes and the shell scripts for building the above AMIs and the for the ansible - https://github.com/onyeka-hub/terraform-cloud.git
+Please refer to the below repository for the codes and the shell scripts for building the above AMIs and the for the ansible - https://github.com/onyeka-hub/terraform-cloud-project-19.git
 
 ![bastion ami](./images/bastion-ami.PNG)
 
