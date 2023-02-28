@@ -26,12 +26,15 @@ Select "Start from scratch", choose a name for your organization and create it.
 
 3. Configure a workspace
 Before we begin to configure our workspace – watch this part of the video https://youtu.be/m3PlM4erixY?t=287 to better understand the difference between **version control workflow, CLI-driven workflow and API-driven workflow** and other configurations that we are going to implement.
+
 We will use **version control workflow** as the most common and recommended way to run Terraform commands triggered from our git repository.
 Create a new repository in your GitHub and call it **terraform-cloud**, push your Terraform codes developed in the previous projects to the repository.
+
 Choose **version control workflow** and you will be promped to connect your GitHub account to your workspace – follow the prompt and add your newly created repository to the workspace.
 Move on to "Configure settings", provide a description for your workspace and leave all the rest settings default, click "Create workspace".
 
 4. Configure variables
+
 Terraform Cloud supports two types of variables: environment variables and Terraform variables. Either type can be marked as sensitive, which prevents them from being displayed in the Terraform Cloud web UI and makes them write-only.
 Set two environment variables: **AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY**, set the values that you used in Project 16. These credentials will be used to privision your AWS infrastructure by Terraform Cloud.
 After you have set these 2 environment variables – yout Terraform Cloud is all set to apply the codes from GitHub and create all necessary AWS resources.
@@ -50,11 +53,44 @@ Before you proceed ensure you have the following tools installed on your local m
 
 Refer to this **repository** https://github.com/darey-devops/PBL-project-19.git for guidiance on how to refactor your enviroment to meet the new changes above and ensure you go through the README.md file.
 
-- Build the following AMIs with Packer
+### Action Plan for project 19
+1. Build images using packer
+
+2. confirm the AMIs in the console
+
+3. update terrafrom script with new ami IDs generated from packer build
+
+4. create terraform cloud account and backend
+
+5. run terraform script
+
+6. update ansible script with values from teraform output
+
+       - RDS endpoints for wordpress and tooling
+       - Database name, password and username for wordpress and tooling
+       - Access point ID for wordpress and tooling
+       - Internal load balancee DNS for nginx reverse proxy
+
+7. run ansible script
+
+8. check the website
+
+### Draw back in the scripts
+1. Direct hardcoding of values
+
+2. Inputting credentials directly in the script
+
+Useful links for windows users https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse https://medium.com/risan/upgrade-your-ssh-key-to-ed25519-c6e8d60d3c54
+
+### Build the following AMIs with Packer
         - bastion ami
         - nginx ami
         - ubuntu ami
         - web ami for wordpress and tooling sites
+
+Navigate to the folder where you have your ami pac ker hcl and shell scripts.
+
+Run `packer build <pkr.hcl file>`
 
 Please refer to the below repository for the codes and the shell scripts for building the above AMIs and the for the ansible - https://github.com/onyeka-hub/terraform-cloud.git
 
@@ -78,14 +114,24 @@ By now, you have tried to launch plan and apply manually from Terraform Cloud we
 
 **Note**: First, try to approach this project on your own, but if you hit any blocker and could not move forward with the project, refer to this video https://youtu.be/nCemvjcKuIA
 
+**Note**: 
+        - Because we have not configured our servers (nginx proxy, wordpress and tooling) it will be failing health checks, therefore we need to deregister them from the target group so that we can easily configure them without the autoscaling group spinning up new instances.
+        - We also need to de-attach the target groups (nginx proxy, wordpress and tooling) group from the laodbalancers so that the loadbalancers would not forward traffic to the instances during our configuration.
+
+**Note**:
+- That the ansible files should be in another directory in github because the bastion server needs to clone this repository to be able to run the playbook.
+- That the ansible needs to connect to our aws account to pull down the private ip address of our servers , therefore we need to run `aws configure` on our bastion so that it can have the credentials to connect to the servers.
+- Using ssh-agent, through vscode, connect to the bastion host and clone the https://github.com/onyeka-hub/ansible-deploy-pro-19.git repository.
+
 8. Update ansible script with values from teraform output
 
-- RDS endpoints for wordpress and tooling
-- Database name, password and username for wordpress and tooling
-- Access point ID for wordpress and tooling
-- Internal load balancee DNS for nginx reverse proxy
+        - RDS endpoints for wordpress and tooling
+        - Database name, password and username for wordpress and tooling
+        - Access point ID for wordpress and tooling
+        - Internal load balancer DNS for nginx reverse proxy
 
-9. run ansible script. Note that the ansible files should be in another directory in github because the bastion server needs to clone this repository to be able to run the playbook.
+9. Run ansible script.
+
 Check the dynamic inventory by running this command:
 
 ```
